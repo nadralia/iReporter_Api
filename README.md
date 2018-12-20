@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nadralia/iReporter_Api.svg?branch=data_structures)](https://travis-ci.org/nadralia/iReporter_Api)
+[![Coverage Status](https://coveralls.io/repos/github/nadralia/iReporter_Api/badge.svg?branch=data_structures)](https://coveralls.io/github/nadralia/iReporter_Api?branch=data_structures)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4ebc197ca3dd76fa3ef7/maintainability)](https://codeclimate.com/github/nadralia/iReporter_Api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4ebc197ca3dd76fa3ef7/test_coverage)](https://codeclimate.com/github/nadralia/iReporter_Api/test_coverage)
 # iReporter_Api
