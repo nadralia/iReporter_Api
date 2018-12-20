@@ -45,3 +45,6 @@ class Redflag:
             except Exception as error:
                 return error   
         return False
+    
+    def update_comment(self):
+        pass
