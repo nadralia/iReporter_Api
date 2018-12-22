@@ -1,5 +1,6 @@
 from api import app
 from flask import request, jsonify
+from datetime import datetime
 from .models.redflag import Redflag
 from api.validations import Validation
 
@@ -11,9 +12,10 @@ validation_obj = Validation()
 #adding redflag
 def add_redflag():
     data = request.get_json()
-    search_keys = ("createdOn", "createdBy", "type", "email", "location", "status", "images", "videos","comment")
+    date_added = datetime.now()
+    search_keys = ("createdBy", "type", "email", "location", "status", "images", "videos","comment")
     if all(key in data.keys() for key in search_keys):
-        createdOn = data.get("createdOn")
+        createdOn = date_added
         createdBy = data.get("createdBy")
         redflag_type = data.get("type")
         email = data.get("email")
@@ -23,7 +25,7 @@ def add_redflag():
         videos = data.get("videos")
         comment = data.get("comment")
 
-        invalid = validation_obj.redflag_validation(createdOn, createdBy, redflag_type, email, location)
+        invalid = validation_obj.redflag_validation(createdOn, createdBy, redflag_type, email, location, comment)
 
         if invalid:
             return jsonify({"message":invalid}), 400
@@ -37,15 +39,15 @@ def add_redflag():
 
 @app.route("/api/v1/red-flags", methods=["GET"])
 # fetching all redflags
-def fetch_all_products():
+def fetch_all_redflags():
     all_redflags = redflag_obj.fetch_all_redflags()
     if all_redflags:
-        return jsonify({"All Redflags":all_redflags}), 200
+        return jsonify({"Status":200, "All Redflags":all_redflags}), 200
     return jsonify({"message":"no redflags added yet"}), 404 
 
 @app.route("/api/v1/red-flags/<redflag_id>", methods=["GET"])
 # fetching a single redflag
-def fetch_single_product(redflag_id):
+def fetch_single_redflag(redflag_id):
     invalid = validation_obj.validate_input_type(redflag_id)
     if invalid:
         return jsonify({"message":invalid}), 400
@@ -53,6 +55,7 @@ def fetch_single_product(redflag_id):
     if single_redflag:
         return jsonify({"redflag details": single_redflag}), 200
     return jsonify({"message":"redflag not added yet"}), 404
+
 @app.route("/api/v1/red-flags/<redflag_id>/location", methods=["PATCH"])
 # Edit the location of a specific red-flag record
 def edit_location_of_a_specific_redflag_record(redflag_id, location):
