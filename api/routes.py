@@ -59,16 +59,18 @@ def fetch_single_redflag(redflag_id):
 @app.route("/api/v1/red-flags/<redflag_id>/location", methods=["PATCH"])
 # Edit the location of a specific red-flag record
 def edit_location_of_a_specific_redflag_record(redflag_id, location):
-    pass
+    if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
+        return jsonify({"message": "Index out of range"}), 400
 
 
 @app.route("/api/v1/red-flags/<redflag_id>/comment", methods=["PATCH"])
 # Edit the comment of a specific red-flag record
 def edit_comment_of_a_specific_redflag_record(redflag_id, comment):
-    pass
+    if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
+        return jsonify({"message": "Index out of range"}), 400
 
 @app.route("/api/v1/red-flags/<redflag_id>", methods=["DELETE"])
 # Delete a specific red flag record
 def delete_a_specific_redflag_record(redflag_id):
-    pass
-
+    if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
+        return jsonify({"message": "Index out of range"}), 400
