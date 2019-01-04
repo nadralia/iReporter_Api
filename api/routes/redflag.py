@@ -1,14 +1,17 @@
-from api import app
-from flask import request, jsonify
+from flask import Blueprint, jsonify, request
 from datetime import datetime
-from .models.redflag import Redflag
+from api.models.redflag import Redflag
 from api.validations import Validation
+
+redflag = Blueprint('redflag', __name__)
 
 redflag_obj = Redflag()
 validation_obj = Validation()
 
-"""Redflag Views"""
-@app.route("/api/v1/red-flags",methods=["POST"])
+
+
+"""Redflag Views/Routes"""
+@redflag.route("/api/v1/red-flags",methods=["POST"])
 #adding redflag
 def add_redflag():
     data = request.get_json()
@@ -37,7 +40,7 @@ def add_redflag():
             return jsonify({"message":"redflag successfully added", "redflags":redflag_obj.all_redflags}), 201
     return jsonify({"message": "a 'key(s)' is missing in your request body"}), 400 
 
-@app.route("/api/v1/red-flags", methods=["GET"])
+@redflag.route("/api/v1/red-flags", methods=["GET"])
 # fetching all redflags
 def fetch_all_redflags():
     all_redflags = redflag_obj.fetch_all_redflags()
@@ -45,7 +48,7 @@ def fetch_all_redflags():
         return jsonify({"Status":200, "All Redflags":all_redflags}), 200
     return jsonify({"message":"no redflags added yet"}), 404 
 
-@app.route("/api/v1/red-flags/<redflag_id>", methods=["GET"])
+@redflag.route("/api/v1/red-flags/<redflag_id>", methods=["GET"])
 # fetching a single redflag
 def fetch_single_redflag(redflag_id):
     invalid = validation_obj.validate_input_type(redflag_id)
@@ -56,20 +59,20 @@ def fetch_single_redflag(redflag_id):
         return jsonify({"redflag details": single_redflag}), 200
     return jsonify({"message":"redflag not added yet"}), 404
 
-@app.route("/api/v1/red-flags/<redflag_id>/location", methods=["PATCH"])
+@redflag.route("/api/v1/red-flags/<redflag_id>/location", methods=["PATCH"])
 # Edit the location of a specific red-flag record
 def edit_location_of_a_specific_redflag_record(redflag_id, location):
     if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
         return jsonify({"message": "Index out of range"}), 400
 
 
-@app.route("/api/v1/red-flags/<redflag_id>/comment", methods=["PATCH"])
+@redflag.route("/api/v1/red-flags/<redflag_id>/comment", methods=["PATCH"])
 # Edit the comment of a specific red-flag record
 def edit_comment_of_a_specific_redflag_record(redflag_id, comment):
     if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
         return jsonify({"message": "Index out of range"}), 400
 
-@app.route("/api/v1/red-flags/<redflag_id>", methods=["DELETE"])
+@redflag.route("/api/v1/red-flags/<redflag_id>", methods=["DELETE"])
 # Delete a specific red flag record
 def delete_a_specific_redflag_record(redflag_id):
     if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
