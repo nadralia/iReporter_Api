@@ -1,4 +1,5 @@
 from flask import Flask
+from api.helpers.welcome import welcome_message
 from api.routes.redflag import redflag
 from api.routes.user import user
 
@@ -9,4 +10,4 @@ app.register_blueprint(user)
 
 @app.route('/')
 def index():
-    pass
+   return welcome_message

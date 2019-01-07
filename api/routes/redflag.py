@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request
-from datetime import datetime
 from api.models.redflag import Redflag
 from api.validations import Validation
 
@@ -8,36 +7,19 @@ redflag = Blueprint('redflag', __name__)
 redflag_obj = Redflag()
 validation_obj = Validation()
 
-
-
 """Redflag Views/Routes"""
 @redflag.route("/api/v1/red-flags",methods=["POST"])
 #adding redflag
 def add_redflag():
     data = request.get_json()
-    date_added = datetime.now()
     search_keys = ("createdBy", "type", "email", "location", "status", "images", "videos","comment")
     if all(key in data.keys() for key in search_keys):
-        createdOn = date_added
-        createdBy = data.get("createdBy")
-        redflag_type = data.get("type")
-        email = data.get("email")
-        location = data.get("location")
-        status = data.get("status")
-        images = data.get("images")
-        videos = data.get("videos")
-        comment = data.get("comment")
 
-        invalid = validation_obj.redflag_validation(createdOn, createdBy, redflag_type, email, location, comment)
-
-        if invalid:
-            return jsonify({"message":invalid}), 400
-        for redflag in range(len(redflag_obj.all_redflags)):
-            if redflag_obj.all_redflags[redflag]["comment"] == comment:
-
-                return jsonify({"message":"redflag already exists","redflags":redflag_obj.all_redflags}), 200
-        if (redflag_obj.add_redflag(createdOn, createdBy, redflag_type,email,location,status,images,videos,comment)):
+        valid = validation_obj.redflag_validation(data)
+        if valid == "Valid":
+            redflag_obj.add_redflag(data)
             return jsonify({"message":"redflag successfully added", "redflags":redflag_obj.all_redflags}), 201
+        return jsonify({"message": valid}), 400
     return jsonify({"message": "a 'key(s)' is missing in your request body"}), 400 
 
 @redflag.route("/api/v1/red-flags", methods=["GET"])
