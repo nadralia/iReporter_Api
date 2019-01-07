@@ -47,6 +47,18 @@ class Redflag:
             except Exception as error:
                 return error   
         return False
-    
-    def update_comment(self):
-        pass
+    def delete_redflag(self, redflag_id):
+        # fetch a single redflag
+        if len(self.all_redflags) > 0:
+            try:
+                returned_redflag = [redflag for redflag in self.all_redflags if redflag["id"] == int(redflag_id)]
+                self.all_redflags.remove(returned_redflag[0])
+                return self.all_redflags
+            except Exception as error:
+                return error   
+        return False
+
+    def update_redflag(self, redflag_id,data):
+        returned_redflag = [redflag for redflag in self.all_redflags if redflag["id"] == int(redflag_id)]
+        returned_redflag[0]['data'] = data
+        return True

@@ -2,26 +2,18 @@ import re
 
 class Validation:
 
-    def redflag_validation(self, email,comment,location, redflag_type,createdBy):
+    def redflag_validation(self,comment,location, redflag_type):
         """ add redflag validation."""
-        try:
-            if email == " ":
-                message = {"message":"Email is missing"}
-            if comment == " ":
-                message = {"message":"Comment of the redflag is missing"}
-            if redflag_type == " ":
-                message = {"message":"Type of redflag is missing"}
-            if createdBy == " ":
-                message = {"message":"Created by is missing"}
-            if location == " ":
-                message = {"message":"Created by is missing"}
-            if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)",email):
-                message = {"message":"Invalid email format"}
-            else:
-                message = "Valid"
-            return message
-        except KeyError:
-            return "Invalid Key Fields"
+
+        if comment == " ":
+            message = {"message":"Comment of the redflag is missing"}
+        if redflag_type == " ":
+            message = {"message":"Type of redflag is missing"}
+        if location == " ":
+            message = {"message":"Created by is missing"}
+        else:
+            message = "Valid"
+        return message
 
     def validate_input_type(self, input):
         """check if the input values is an integer"""
@@ -30,26 +22,19 @@ class Validation:
         except ValueError:
             return "Input should be an interger"
 
-    def validate_user(self, username, password, email,role,full_name):
+    def validate_user(self, username, password, email,role):
         """ Validates user fields"""
-        try:
-            if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)",email):
-                message = {"message":"Invalid email format"}
-            if not re.match(r"([a-zA-Z ]*$)", full_name):
-                message = {"message":"Only alphanumerics allowed in user's full name"}
-            if not re.match(r"([a-zA-Z0-9]*$)", username):
-                message = {"message":"Only alphanumerics allowed in user name"}
-            if re.match(r"([0-9])", username):
-                message = {"message":"user name cannot contain numbers only"}
-            if len(password) < 5:
-                message = {"message":"Password too short"}
-            if role != 'Admin' and role != 'Reporter':
-                message = {"message":"Role must be either Admin or Reporter"}
-            else:
-                message = "is_valid"
-            return message
-        except KeyError:
-            return "Invalid, Key fields missing"
+        if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)",email):
+            message = {"message":"Invalid email format"}
+        if not re.match(r"([a-zA-Z0-9]*$)", username):
+            message = {"message":"Only alphanumerics allowed in user name"}
+        if len(password) < 5:
+            message = {"message":"Password too short"}
+        if role != 'Admin' and role != 'Reporter':
+            message = {"message":"Role must be either Admin or Reporter"}
+        else:
+            message = "is_valid"
+        return message
 
     def validate_login(self, username, password):
         try:

@@ -50,11 +50,10 @@ def register_user():
     data = request.get_json()
     role = data.get("role")
     email = data.get("email")
-    full_name = data.get("full_name")
     username = data.get("username")
     password = data.get("password")
     
-    is_valid = validation_obj.validate_user(username, password, email,role,full_name)
+    is_valid = validation_obj.validate_user(username, password, email,role)
     for user in users:
         if user.email == data['email']:
             return jsonify({"message": "user already exists!"}), 400
