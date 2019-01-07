@@ -1,3 +1,4 @@
+from datetime import datetime
 class Redflag:
     def __init__(self):
         self.all_redflags = [{
@@ -13,19 +14,20 @@ class Redflag:
            "comment": "Police extortion at check point"
         }]
 
-    def add_redflag(self, createdOn, createdBy, redflag_type, email, location, status, images, videos, comment):
+    def add_redflag(self, data):
         #Add redflag issue
+        date_added = datetime.now()
         redflag = dict(
                 id = len(self.all_redflags) + 1,
-                createdOn = createdOn,
-                createdBy = createdBy,
-                type = redflag_type,
-                email = email,
-                location = location,
-                status = status,
-                images = images,
-                videos = videos,
-                comment = comment
+                createdOn = date_added,
+                createdBy = data['createdBy'] ,
+                type = data['type'],
+                email = data['email'],
+                location = data['location'],
+                status = data['status'],
+                images = data['images'],
+                videos = data['videos'],
+                comment = data['comment']
             )
         self.all_redflags.append(redflag)
         return self.all_redflags

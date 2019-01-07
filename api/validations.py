@@ -2,31 +2,31 @@ import re
 
 class Validation:
 
-    # add redflag validation.
-    def redflag_validation(self, createdOn, createdBy, redflag_type, email, location, comment):
-        if not location:
-            return "location is missing"
-        if not createdOn:
-            return "the date is missing"
-        if not createdBy:
-            return "Owners name is missing"
-        if not redflag_type:
-            return "redflag type is missing"
-        if not comment:
-            return "comment is missing"
-        if  not email:
-            return "Email address is missing"
-        if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)", email):
-            return "Invalid email format"
+    def redflag_validation(self, data):
+        """ add redflag validation."""
+        redflag_fields = ['createdBy', 'type', 'email', 'location', 'status', 'images', 'videos','comment']
+        try:
+            for redflag_field in redflag_fields:
+                if data[redflag_field] == "":
+                    return redflag_field + " cannot be blank"
+            if len(data.keys()) == 0:
+                return "No redflag added"
+            if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)",data['email']):
+                return "Invalid email format"
+            else:
+                return "Valid"
+        except KeyError:
+            return "Invalid Key Fields"
 
     def validate_input_type(self, input):
+        """check if the input values is an integer"""
         try:
             _input = int(input)
         except ValueError:
             return "Input should be an interger"
 
     def validate_user(self, data):
-        # Validates user fields
+        """ Validates user fields"""
         user_fields = ['username', 'email', 'password', 'full_name',
                        'role', 'gender']
         try:
