@@ -14,13 +14,11 @@ def add_redflag():
     data = request.get_json()
     search_keys = ("createdBy", "type", "email", "location", "status", "images", "videos","comment")
     if all(key in data.keys() for key in search_keys):
-        createdBy = data.get("createdBy")
         redflag_type = data.get("type")
-        email = data.get("email")
         location = data.get("location")
         comment = data.get("comment")
 
-        valid = validation_obj.redflag_validation(email,comment,location,redflag_type,createdBy)
+        valid = validation_obj.redflag_validation(comment,location,redflag_type)
         if valid == "Valid":
             redflag_obj.add_redflag(data)
             return jsonify({"message":"redflag successfully added", "redflags":redflag_obj.all_redflags}), 201
