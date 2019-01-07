@@ -46,21 +46,35 @@ def fetch_single_redflag(redflag_id):
         return jsonify({"redflag details": single_redflag}), 200
     return jsonify({"message":"redflag not added yet"}), 404
 
-@redflag.route("/api/v1/red-flags/<redflag_id>/location", methods=["PATCH"])
+@redflag.route("/api/v1/red-flags/<int:redflag_id>/location", methods=["PATCH"])
 # Edit the location of a specific red-flag record
-def edit_location_of_a_specific_redflag_record(redflag_id, location):
-    if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
-        return jsonify({"message": "Index out of range"}), 400
+def edit_location_of_a_specific_redflag_record(redflag_id):
+    data = request.get_json()
+    location = data.get("location")  
+    updated_redflag = redflag_obj.update_redflag(redflag_id,location)
+    if updated_redflag:
+        return jsonify({"message":"Redflag updated successfully"}), 200
+    return jsonify({"message":"redflag not updated yet"}), 404
 
 
-@redflag.route("/api/v1/red-flags/<redflag_id>/comment", methods=["PATCH"])
+@redflag.route("/api/v1/red-flags/<int:redflag_id>/comment", methods=["PATCH"])
 # Edit the comment of a specific red-flag record
-def edit_comment_of_a_specific_redflag_record(redflag_id, comment):
+def edit_comment_of_a_specific_redflag_record(redflag_id):
     if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
         return jsonify({"message": "Index out of range"}), 400
+    data = request.get_json()
+    comment = data.get("comment")  
+    updated_redflag = redflag_obj.update_redflag(redflag_id,comment)
+    if updated_redflag:
+        return jsonify({"message":"Redflag updated successfully"}), 200
+    return jsonify({"message":"redflag not updated yet"}), 404
 
-@redflag.route("/api/v1/red-flags/<redflag_id>", methods=["DELETE"])
+
+@redflag.route("/api/v1/red-flags/<int:redflag_id>", methods=["DELETE"])
 # Delete a specific red flag record
 def delete_a_specific_redflag_record(redflag_id):
-    if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
-        return jsonify({"message": "Index out of range"}), 400
+    deleted_redflag = redflag_obj.delete_redflag(redflag_id)
+    if deleted_redflag:
+        return jsonify({"message":"Redflag removed successfully"}), 200
+    return jsonify({"message":"redflag not deleted yet"}), 404
+
