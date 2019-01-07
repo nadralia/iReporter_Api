@@ -47,18 +47,29 @@ class Redflag:
             except Exception as error:
                 return error   
         return False
+    def loop_through(self , redflag_id):
+        returned_redflag = [redflag for redflag in self.all_redflags if redflag["id"] == int(redflag_id)]
+        return  returned_redflag
+
     def delete_redflag(self, redflag_id):
         # fetch a single redflag
         if len(self.all_redflags) > 0:
             try:
-                returned_redflag = [redflag for redflag in self.all_redflags if redflag["id"] == int(redflag_id)]
+                returned_redflag = self.loop_through(redflag_id)
                 self.all_redflags.remove(returned_redflag[0])
                 return self.all_redflags
             except Exception as error:
                 return error   
         return False
 
-    def update_redflag(self, redflag_id,data):
-        returned_redflag = [redflag for redflag in self.all_redflags if redflag["id"] == int(redflag_id)]
-        returned_redflag[0]['data'] = data
+    def update_comment(self, redflag_id,data):
+        returned_redflag = self.loop_through(redflag_id)
+        returned_redflag[0]['comment'] = data
         return True
+    
+    def update_location(self, redflag_id, data):
+        returned_redflag = self.loop_through(redflag_id)
+        returned_redflag[0]['location'] = data
+        return True
+
+

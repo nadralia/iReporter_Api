@@ -49,7 +49,7 @@ def fetch_single_redflag(redflag_id):
 def edit_location_of_a_specific_redflag_record(redflag_id):
     data = request.get_json()
     location = data.get("location")  
-    updated_redflag = redflag_obj.update_redflag(redflag_id,location)
+    updated_redflag = redflag_obj.update_location(redflag_id,location)
     if updated_redflag:
         return jsonify({"message":"Redflag updated successfully"}), 200
     return jsonify({"message":"redflag not updated yet"}), 404
@@ -62,7 +62,7 @@ def edit_comment_of_a_specific_redflag_record(redflag_id):
         return jsonify({"message": "Index out of range"}), 400
     data = request.get_json()
     comment = data.get("comment")  
-    updated_redflag = redflag_obj.update_redflag(redflag_id,comment)
+    updated_redflag = redflag_obj.update_comment(redflag_id,comment)
     if updated_redflag:
         return jsonify({"message":"Redflag updated successfully"}), 200
     return jsonify({"message":"redflag not updated yet"}), 404

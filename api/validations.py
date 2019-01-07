@@ -22,14 +22,12 @@ class Validation:
         except ValueError:
             return "Input should be an interger"
 
-    def validate_user(self, username, password, email,role):
+    def validate_user(self, username, email,role):
         """ Validates user fields"""
         if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)",email):
             message = {"message":"Invalid email format"}
         if not re.match(r"([a-zA-Z0-9]*$)", username):
             message = {"message":"Only alphanumerics allowed in user name"}
-        if len(password) < 5:
-            message = {"message":"Password too short"}
         if role != 'Admin' and role != 'Reporter':
             message = {"message":"Role must be either Admin or Reporter"}
         else:
