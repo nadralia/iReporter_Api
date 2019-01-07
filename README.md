@@ -14,16 +14,72 @@ Corruption is a huge bane to Africa’s development. African countries must deve
 - Delete a red-flag record.
 
 ## API Endpoints
-| REQUEST | ROUTE | FUNCTIONALITY |
-| ------- | ----- | ------------- |
-| POST | api/v1/red-flags | Creates a redflag |
-| GET | /api/v1/red-flags | Fetches all red-flags|
-| GET | api/v1/red-flags/&lt;redflag_id&gt; | Fetch a single redflag |
+| Methods | EndPoint                               | Functionality                                   |
+| ------- | -------------------------------------- | ----------------------------------------------- |
+| POST    | /api/v1/auth/signup                    | Sign up a user                                  |
+| POST    | /api/v1/auth/login                     | Login a user                                    |
+| POST    | /api/v1/red-flags                      | Create a red-flag record a user                 |
+| GET     | /api/v1/red-flags                      | Fetch all red-flag records.                     |
+| GET     | /api/v1/red-flags/redflag_id          | Fetch a specific red-flag-record                |
+| PATCH   | /api/v1/red-flags/redflag_id/location | Edit the location of a specific red-flag record |
+| PATCH   | /api/v1/red-flags/redflag_id/comment  | Edit the comment of a specific red-flag record  |
+| DELETE  | /api/v1/red-flags/redflag_id          | Delete a specific red flag record.              |
+
 
 **Getting started with the app**
 
-**Technologies used to build the application**
+### Technologies used to build the application
 
-* [Python 3.7](https://docs.python.org/3/)
+-   [Python 3.6](https://docs.python.org/3/)
+-   [Flask](http://flask.pocoo.org/)
 
-* [Flask](http://flask.pocoo.org/)
+### Installation
+
+Create a new directory and initialize git in it. Clone this repository by running
+
+```sh
+git clone https://github.com/nadralia/iReporter_Api
+```
+
+Create a virtual environment. For example, with virtualenv, create a virtual environment named venv using
+
+```sh
+virtualenv venv
+```
+
+Activate the virtual environment
+
+```sh
+cd venv/scripts/activate
+```
+
+Install the dependencies in the requirements.txt file using pip
+
+```sh
+pip install -r requirements.txt
+```
+
+Start the application by running
+
+```sh
+python run.py
+```
+## How to run tests
+
+Enter the command below in the terminal to run the tests with coverage using
+ pytest
+
+```sh
+  python -m pytest tests/
+```
+### Link to Store Manager on Heroku
+
+### [iReporter](https://nadralia-ireporter.herokuapp.com)
+
+## Author
+
+Adralia Nelson
+
+## Acknowledgements
+
+Big thanks to LFA's and fellow colleagues at [Andela](https://andela.com) for reviewing the project and the guiding on the basic principles.

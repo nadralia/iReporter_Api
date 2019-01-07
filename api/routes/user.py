@@ -48,7 +48,13 @@ def assigns_token(data):
 def register_user():
     """ registers a user"""
     data = request.get_json()
-    is_valid = validation_obj.validate_user(data)
+    role = data.get("role")
+    email = data.get("email")
+    full_name = data.get("full_name")
+    username = data.get("username")
+    password = data.get("password")
+    
+    is_valid = validation_obj.validate_user(username, password, email,role,full_name)
     for user in users:
         if user.email == data['email']:
             return jsonify({"message": "user already exists!"}), 400
@@ -73,16 +79,15 @@ def register_user():
     except KeyError:
         return "Invalid key fields"
 
-
 @user.route('/api/v1/login', methods=['POST'])
 def login():
     """Logs in a user"""
     data = request.get_json()
     try:
-        email = data['email']
-        is_valid = validation_obj.validate_login(data)
-        if re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)", email) and\
-           is_valid == "Credentials valid":
+        username = data.get("username")
+        password = data.get("password")
+        is_valid = validation_obj.validate_login(username, password)
+        if is_valid == "Credentials valid":
             return assigns_token(data)
         return jsonify({"message": is_valid}), 400
     except KeyError:
