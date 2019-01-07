@@ -29,6 +29,8 @@ welcome_message = """
          <div class='main-content'>
            <h2>iReporter</h2>
               Currently supported endpoints <br>
+              <a href='https://nadralia-ireporter.herokuapp.com/api/v1/red-flags'>Redflags</a> <br/>
+              <a href='https://nadralia-ireporter.herokuapp.com/api/v1/users'>Users</a>
          </div>
        </body>
      </html>
