@@ -7,7 +7,7 @@ class TestRedflags(BaseTestCase):
     def setUp(self):
         kwargs = {
             "user_id": 1,
-            "full_name": "sarah",
+            "full_name": "Adralia Nelson",
             "email": "nadralia@gmail.com",
             "gender": "male",
             "username": "nadralia",
