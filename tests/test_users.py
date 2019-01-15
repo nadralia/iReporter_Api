@@ -3,7 +3,7 @@ from tests.base_test import BaseTestCase
 from flask import json
 
 
-class TestRedflags(BaseTestCase):
+class TestUsers(BaseTestCase):
     def setUp(self):
         kwargs = {
             "user_id": 1,
