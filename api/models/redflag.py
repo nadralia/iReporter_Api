@@ -47,6 +47,7 @@ class Redflag:
             except Exception as error:
                 return error   
         return False
+        
     def loop_through(self , redflag_id):
         returned_redflag = [redflag for redflag in self.all_redflags if redflag["id"] == int(redflag_id)]
         return  returned_redflag
