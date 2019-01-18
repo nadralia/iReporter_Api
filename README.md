@@ -14,25 +14,25 @@ Corruption is a huge bane to Africa’s development. African countries must deve
 - Delete a red-flag record.
 
 ## API Endpoints
-| Methods | EndPoint                               | Functionality                                   |
-| ------- | -------------------------------------- | ----------------------------------------------- |
-| POST    | /api/v1/auth/signup                    | Sign up a user                                  |
-| POST    | /api/v1/auth/login                     | Login a user                                    |
-| POST    | /api/v1/red-flags                      | Create a red-flag record a user                 |
-| GET     | /api/v1/red-flags                      | Fetch all red-flag records.                     |
-| GET     | /api/v1/red-flags/redflag_id          | Fetch a specific red-flag-record                |
-| PATCH   | /api/v1/red-flags/redflag_id/location | Edit the location of a specific red-flag record |
-| PATCH   | /api/v1/red-flags/redflag_id/comment  | Edit the comment of a specific red-flag record  |
-| DELETE  | /api/v1/red-flags/redflag_id          | Delete a specific red flag record.              |
+| Methods | EndPoint                               | Functionality                                   |Access
+| ------- | -------------------------------------- | ----------------------------------------------- |------
+| POST    | /api/v1/auth/signup                    | Sign up a user                                  |PUBLIC
+| POST    | /api/v1/auth/login                     | Login a user                                    |PUBLIC
+| POST    | /api/v1/red-flags                      | Create a red-flag record a user                 |PRIVATE
+| GET     | /api/v1/red-flags                      | Fetch all red-flag records.                     |PRIVATE
+| GET     | /api/v1/red-flags/redflag_id           | Fetch a specific red-flag-record                |PRIVATE
+| PATCH   | /api/v1/red-flags/redflag_id/location  | Edit the location of a specific red-flag record |PRIVATE
+| PATCH   | /api/v1/red-flags/redflag_id/comment   | Edit the comment of a specific red-flag record  |PRIVATE
+| DELETE  | /api/v1/red-flags/redflag_id           | Delete a specific red flag record.              |PRIVATE
 
 
 **Getting started with the app**
 
 ### Technologies used to build the application
-
--   [Python 3.6](https://docs.python.org/3/)
--   [Flask](http://flask.pocoo.org/)
-
+- `Python3` - A programming language that lets us work more quickly.
+- `Flask` - A microframework for Python based on Werkzeug, Jinja 2 and good intentions.
+- `Virtualenv` - A tool to create an isolated virtual environment.
+- `Git` - Version Control System for tracking your changes.
 ### Installation
 
 Create a new directory and initialize git in it. Clone this repository by running
