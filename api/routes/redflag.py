@@ -17,6 +17,7 @@ def add_redflag():
         redflag_type = data.get("type")
         location = data.get("location")
         comment = data.get("comment")
+        email = data.get("email")
 
         valid = validation_obj.redflag_validation(comment,location,redflag_type)
         if valid == "Valid":
@@ -58,7 +59,7 @@ def edit_location_of_a_specific_redflag_record(redflag_id):
 @redflag.route("/api/v1/red-flags/<int:redflag_id>/comment", methods=["PATCH"])
 # Edit the comment of a specific red-flag record
 def edit_comment_of_a_specific_redflag_record(redflag_id):
-    if redflag_id == 0 or redflag_id > len(redflag_obj.all_redflags):
+    if redflag_id == 0:
         return jsonify({"message": "Index out of range"}), 400
     data = request.get_json()
     comment = data.get("comment")  

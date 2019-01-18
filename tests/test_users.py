@@ -7,11 +7,12 @@ class TestUsers(BaseTestCase):
     def setUp(self):
         kwargs = {
             "user_id": 1,
-            "full_name": "Adralia Nelson",
+            "firstname": "Adralia",
+            "lastname": "Nelson",
             "email": "nadralia@gmail.com",
             "gender": "male",
             "username": "nadralia",
             "password": "1234567#ad",
-            "role": "admin"
+            "is_admin": True
         }
         self.user = User(**kwargs)
